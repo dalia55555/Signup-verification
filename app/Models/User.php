@@ -40,6 +40,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'code_send_at' => 'datetime',
         'password' => 'hashed',
     ];
 }

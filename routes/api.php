@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\verificationController;
 use App\Http\Controllers\LoginController;
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

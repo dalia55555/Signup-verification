@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Contracts\Requests\RegisterRequest;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Mail\VerficationCodeMail;
 use App\Models\user;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +15,7 @@ class RegistrationController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make ($request->password);
         $user->verification_code = $this->generate_verification_code(6);
+        $user->code_send_at = date(now());
         $user->save();
         $this->SendEmail($user->name,  $user->verification_code, $user->email);
         
@@ -26,7 +26,7 @@ class RegistrationController extends Controller
         return $random_hash;
     }
     private function SendEmail(string $name,string $verificationCode, $email){
-        return  Mail::to($email)->send(new VerficationCodeMail($name,$verificationCode));
+        Mail::to($email)->send(new VerficationCodeMail($name,$verificationCode));
         }
 
 
