@@ -18,6 +18,7 @@ class RegistrationController extends Controller
         $user->verification_code = $this->generate_verification_code(6);
         $user->save();
         $this->SendEmail($user->name,  $user->verification_code, $user->email);
+        
         return response($user);
     }
     private function generate_verification_code($length):string {
