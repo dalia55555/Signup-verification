@@ -1,0 +1,1 @@
+welcome {{$NAME}} here is your verification Code {{$CODE}}.
