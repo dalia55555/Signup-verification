@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Providers;
-
 use Illuminate\Support\ServiceProvider;
+use App\Interfaces\IUserService;
+use App\Services\UserService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(IUserService::class, UserService::class);
     }
 
     /**

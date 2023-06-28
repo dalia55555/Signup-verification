@@ -3,7 +3,6 @@ namespace App\Repositories;
 use App\DTO\UserDTO;
 use App\Interfaces\IUserRepo;
 use App\Models\User;
-use PHPUnit\Framework\MockObject\BadMethodCallException;
 
 
 class UserRepo implements IUserRepo{

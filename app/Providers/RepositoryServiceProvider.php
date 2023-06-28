@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\IUserRepo;
 use App\Repositories\UserRepo;
 
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -15,6 +16,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         //
         $this->app->bind(IUserRepo::class, UserRepo::class);
+
 
     }
 

@@ -16,7 +16,7 @@ class RegistrationController extends Controller
         $this->userRepo = $userRepo;
     }
     public function Register(RegisterRequest $request){
-        $userDTO = new UserDTO($request->name, $request->email,Hash::make ($request->password),$this->generate_verification_code(6));
+        $userDTO = new UserDTO($request->name, $request->email,Hash::make ($request->password), $this->generate_verification_code(6));
         $res =  $this->userRepo->CreateUser($userDTO);
         $this->SendEmail($userDTO->name,  $userDTO->verification_code, $userDTO->email);
         return response($res);

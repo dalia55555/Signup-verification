@@ -19,7 +19,7 @@ class verificationController extends Controller
         $verification_code = $request->verification_code;
 
         if($this->VerifyEmail($email, $verification_code)==false){
-            return response()->json(['message' => 'error or expired, check your mail again'], 400);
+            return response()->json(['message' => 'error or expired'], 400);
         }
         $this->userRepository->ActivateUser($email);
         return response()->json(['message' => 'done'], 200);
