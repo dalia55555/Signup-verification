@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
+use App\Interfaces\IUserRepo;
 use App\Mail\VerficationCodeMail;
-use App\Models\user;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use  App\DTO\UserDTO;
+
 
 class RegistrationController extends Controller
 {
+    private IUserRepo $userRepo ;
+    public function __construct(IUserRepo $userRepo){
+        $this->userRepo = $userRepo;
+    }
     public function Register(RegisterRequest $request){
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make ($request->password);
-        $user->verification_code = $this->generate_verification_code(6);
-        $user->code_send_at = date(now());
-        $user->save();
-        $this->SendEmail($user->name,  $user->verification_code, $user->email);
-        
-        return response($user);
+        $userDTO = new UserDTO($request->name, $request->email,Hash::make ($request->password),$this->generate_verification_code(6));
+       $res =  $this->userRepo->CreateUser($userDTO);
+        $this->SendEmail($userDTO->name,  $userDTO->verification_code, $userDTO->email);
+        return response($res);
     }
     private function generate_verification_code($length):string {
         $random_hash = substr(md5(uniqid(rand(), true)), $length, $length); // 16 characters long
